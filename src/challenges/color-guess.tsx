@@ -2,8 +2,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 
 type HEXColor = `#${string}`;
 
-import "./App.css";
-import { cn } from "./utils";
+import { cn } from "../utils";
 
 const Button: FC<{
   guessColor: HEXColor;
@@ -36,16 +35,22 @@ const Button: FC<{
 };
 
 const createHexColor = (): HEXColor => {
-  const red = Math.floor(Math.random() * 256).toString(16);
-  const green = Math.floor(Math.random() * 256).toString(16);
-  const blue = Math.floor(Math.random() * 256).toString(16);
+  const red = Math.floor(Math.random() * 256)
+    .toString(16)
+    .padStart(2, "0");
+  const green = Math.floor(Math.random() * 256)
+    .toString(16)
+    .padStart(2, "0");
+  const blue = Math.floor(Math.random() * 256)
+    .toString(16)
+    .padStart(2, "0");
 
   return `#${red}${green}${blue}`;
 };
 
 const hex = createHexColor();
 
-function App() {
+export const ColorGuess = () => {
   const [hexColor, setHexColor] = useState(hex);
   const changeColor = () => setHexColor(createHexColor());
   const guessColors = useMemo(
@@ -64,7 +69,9 @@ function App() {
       <div
         className="mx-auto my-12 aspect-video w-48 rounded"
         style={{ backgroundColor: hexColor }}
-      ></div>
+      >
+        {hexColor}
+      </div>
       <div className="my-6 flex flex-wrap justify-center gap-4">
         {guessColors.map((color, i) => (
           <Button
@@ -76,7 +83,7 @@ function App() {
         ))}
       </div>
       <button
-        className="rounded bg-black px-6 py-2 text-white"
+        className="mx-auto block rounded bg-black px-6 py-2 text-white"
         onClick={() => {
           changeColor();
         }}
@@ -85,6 +92,4 @@ function App() {
       </button>
     </>
   );
-}
-
-export default App;
+};
