@@ -19,8 +19,8 @@ const Button: FC<{
   return (
     <button
       className={cn(
-        "rounded px-6 py-2",
-        wrong ? "border border-red-500 bg-red-500/30" : "border",
+        "color rounded border px-6 py-2",
+        wrong && "border border-red-500 bg-red-500/30",
       )}
       onClick={() => {
         if (guessColor !== color) {
