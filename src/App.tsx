@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 
 type HEXColor = `#${string}`;
 
@@ -44,22 +44,17 @@ const createHexColor = (): HEXColor => {
 };
 
 const hex = createHexColor();
-const initialColors = [hex, createHexColor(), createHexColor()].sort(
-  () => Math.random() - 0.5,
-);
 
 function App() {
   const [hexColor, setHexColor] = useState(hex);
   const changeColor = () => setHexColor(createHexColor());
-  const [guessColors, setGuessColors] = useState(initialColors);
-
-  useEffect(() => {
-    setGuessColors(
+  const guessColors = useMemo(
+    () =>
       [hexColor, createHexColor(), createHexColor()].sort(
         () => Math.random() - 0.5,
       ),
-    );
-  }, [hexColor]);
+    [hexColor],
+  );
 
   return (
     <>
